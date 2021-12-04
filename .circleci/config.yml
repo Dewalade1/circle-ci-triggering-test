@@ -14,6 +14,15 @@ commands:
     description: Prints the ID of this workflow 
     steps:
       - run: echo ${CIRCLE_WORKFLOW_ID}
+      - run: return 1  # Builds fail when they return one so we are making this build fail on purpose
+
+  print_error_msg:
+    description: Prints an error message when workflow fails
+    steps:
+      - run:
+          name: on error
+          command: echo "[-] We got an error!!"
+          when: on_fail
 
 jobs: 
   print_pipeline:
@@ -22,14 +31,12 @@ jobs:
     steps:
       - checkout
       - print_pipeline_id
+      - print_error_msg
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  # say-hello-workflow:
-  #   jobs:
-  #     - say-hello
-
   print_id:
     jobs:
       - print_pipeline
