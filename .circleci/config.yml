@@ -12,11 +12,8 @@ orbs:
 commands:
   print_pipeline_id:
     description: Prints the ID of this workflow 
-    parameters:
-      id:
-        type: string
     steps:
-      - run: echo << parameters.id >>
+      - run: echo ${CIRCLE_WORKFLOW_ID}
 
 jobs: 
   print_pipeline:
@@ -24,8 +21,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - print_pipeline_id:
-          id: << parameters.id >>
+      - print_pipeline_id
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
