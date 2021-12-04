@@ -37,7 +37,7 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  print_id:
+  print_id_fail_on_purpose:
     jobs:
       - print_pipeline
 
